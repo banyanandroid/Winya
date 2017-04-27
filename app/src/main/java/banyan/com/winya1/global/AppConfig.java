@@ -10,5 +10,6 @@ public class AppConfig {
 
     public static String url_login_authentication = bae_url + "user_login_validation.php";
     public static String url_country = bae_url + "get_country.php";
+    public static String url_course = bae_url + "get_course.php";
 
 }

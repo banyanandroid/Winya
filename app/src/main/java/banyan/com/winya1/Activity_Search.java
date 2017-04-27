@@ -43,7 +43,7 @@ public class Activity_Search extends AppCompatActivity {
 
 
     FloatingActionButton fab_search;
-    AutoCompleteTextView auto_country, auto_cource;
+    AutoCompleteTextView auto_country, auto_course;
     TextView t1;
 
     SpotsDialog dialog;
@@ -54,14 +54,23 @@ public class Activity_Search extends AppCompatActivity {
     public static final String TAG_COUNTRY_ID = "country_id";
     public static final String TAG_COUNTRY_TITLE = "country_name";
 
+    public static final String TAG_COURSE_ID = "course_id";
+    public static final String TAG_COURSE_TITLE = "course_name";
+
     ArrayList<String> Arraylist_country_id = null;
     ArrayList<String> Arraylist_country_title = null;
+
+    ArrayList<String> Arraylist_course_id = null;
+    ArrayList<String> Arraylist_course_title = null;
 
     private ArrayAdapter<String> adapter_contact;
     ArrayList<String> stringArray_contact = null;
 
-    String str_selected_country, str_selected_country_id = "";
+    private ArrayAdapter<String> adapter_contact1;
+    ArrayList<String> stringArray_contact1 = null;
 
+    String str_selected_country, str_selected_country_id = "";
+    String str_selected_course, str_selected_course_id = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,12 +85,15 @@ public class Activity_Search extends AppCompatActivity {
         collapsingToolbar.setTitle(getString(R.string.expand));
 
         auto_country = (AutoCompleteTextView) findViewById(R.id.txt_apply_country);
-        auto_cource = (AutoCompleteTextView) findViewById(R.id.txt_apply_course);
+        auto_course = (AutoCompleteTextView) findViewById(R.id.txt_apply_course);
 
         fab_search = (FloatingActionButton) findViewById(R.id.btn_fab_search);
 
         Arraylist_country_id = new ArrayList<String>();
         Arraylist_country_title = new ArrayList<String>();
+
+        Arraylist_course_id = new ArrayList<String>();
+        Arraylist_course_title = new ArrayList<String>();
 
         fab_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +142,7 @@ public class Activity_Search extends AppCompatActivity {
 
                         JSONArray arr;
 
-                        arr = obj.getJSONArray("country");
+                        arr = obj.getJSONArray("course");
 
                         for (int i = 0; arr.length() > i; i++) {
                             JSONObject obj1 = arr.getJSONObject(i);
@@ -160,6 +172,103 @@ public class Activity_Search extends AppCompatActivity {
 
                         }
 
+                        try {
+                            queue = Volley.newRequestQueue(getApplicationContext());
+                            Get_Course();
+                        } catch (Exception e) {
+                            // TODO: handle exception
+                        }
+
+
+                    } else if (success == 0) {
+                        TastyToast.makeText(getApplicationContext(), "Something Went Wrong :(", TastyToast.LENGTH_LONG, TastyToast.ERROR);
+                    }
+
+                    dialog.dismiss();
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                dialog.dismiss();
+
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        queue.add(request);
+    }
+
+
+    /*****************************
+     * GET COURSE Details
+     ***************************/
+
+    public void Get_Course() {
+
+        String tag_json_obj = "json_obj_req";
+        System.out.println("CAME 1");
+        StringRequest request = new StringRequest(Request.Method.GET,
+                AppConfig.url_course, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response.toString());
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    int success = obj.getInt("success");
+
+                    if (success == 1) {
+
+                        JSONArray arr;
+
+                        arr = obj.getJSONArray("course");
+
+                        for (int i = 0; arr.length() > i; i++) {
+                            JSONObject obj1 = arr.getJSONObject(i);
+
+                            String course_id = obj1.getString(TAG_COURSE_ID);
+                            String course_title = obj1.getString(TAG_COURSE_TITLE);
+
+                            Arraylist_course_id.add(course_id);
+                            Arraylist_course_title.add(course_title);
+
+                            System.out.println("CAMEEEEEE : " + Arraylist_course_id);
+                        }
+                        try {
+                            adapter_contact1 = new ArrayAdapter<String>(Activity_Search.this,
+                                    android.R.layout.simple_list_item_1, Arraylist_course_title);
+                            auto_course.setAdapter(adapter_contact1);
+                            auto_course.setThreshold(1);
+
+                            auto_course.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+                                                        long arg3) {
+                                    t1 = (TextView) arg1;
+                                    str_selected_course = t1.getText().toString();
+                                    str_selected_course_id = Arraylist_course_id.get(arg2);
+                                }
+                            });
+
+                        } catch (Exception e) {
+
+                        }
+
+                        dialog.dismiss();
 
                     } else if (success == 0) {
                         TastyToast.makeText(getApplicationContext(), "Something Went Wrong :(", TastyToast.LENGTH_LONG, TastyToast.ERROR);
