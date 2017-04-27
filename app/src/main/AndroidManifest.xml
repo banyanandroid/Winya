@@ -12,7 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar.FullScreen">
 
-        <activity android:name=".Activity_Login">
+        <activity
+            android:name=".Activity_Login"
+            android:label="Login"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".Activity_Dashboard"
+            android:label="Dashboard"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +28,20 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity_Dashboard"></activity>
+        <activity
+            android:name=".Activity_Search"
+            android:label="Search Here"
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".Activity_Search"></activity>
+        <activity
+            android:name=".Activity_University_Description"
+            android:label="Description"
+            android:screenOrientation="portrait"></activity>
 
-        <activity android:name=".Activity_University_Description"></activity>
-
-        <activity android:name=".Activity_Apply_form"></activity>
+        <activity
+            android:name=".Activity_Apply_form"
+            android:label="Apply Here"
+            android:screenOrientation="portrait"></activity>
 
     </application>
 

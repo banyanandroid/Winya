@@ -14,6 +14,10 @@ import android.widget.Toast;
 import com.kennyc.bottomsheet.BottomSheet;
 import com.kennyc.bottomsheet.BottomSheetListener;
 
+import java.util.HashMap;
+
+import banyan.com.winya1.global.SessionManager;
+
 /**
  * Created by User on 11/28/2016.
  */
@@ -24,13 +28,29 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
 
     FloatingActionButton fab_menu;
 
+    // Session Manager Class
+    SessionManager session;
+
+    String str_name;
+    public static String str_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        fab_menu = (FloatingActionButton) findViewById(R.id.main_fab_menu);
+        session = new SessionManager(getApplicationContext());
 
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        str_name = user.get(SessionManager.KEY_USER);
+        str_id = user.get(SessionManager.KEY_USER_ID);
+
+        fab_menu = (FloatingActionButton) findViewById(R.id.main_fab_menu);
 
         fab_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,8 +74,6 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
         switch (v.getId()) {
 
             case R.id.main_fab_menu:
-
-                System.out.println("Clicked");
 
 
                 break;
@@ -88,7 +106,7 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
     public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem item) {
         Toast.makeText(getApplicationContext(), item.getTitle() + " Clicked", Toast.LENGTH_SHORT).show();
 
-        if (item.getTitle().equals("Apply Now")){
+        if (item.getTitle().equals("Apply Now")) {
 
             Intent i = new Intent(getApplicationContext(), Activity_Search.class);
             startActivity(i);

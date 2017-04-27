@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import banyan.com.winya1.global.AppConfig;
+import banyan.com.winya1.global.SessionManager;
 
 public class Activity_Login extends Activity {
 
@@ -37,6 +38,8 @@ public class Activity_Login extends Activity {
 
     String user_email, user_password;
 
+    // Session Manager Class
+    SessionManager session;
 
     public static RequestQueue queue;
 
@@ -54,6 +57,9 @@ public class Activity_Login extends Activity {
         setContentView(R.layout.activity_login);
 
         isInternetOn();
+
+        // Session Manager
+        session = new SessionManager(getApplicationContext());
 
         btn_login = (Button) findViewById(R.id.login_btn_signin);
 
@@ -118,6 +124,8 @@ public class Activity_Login extends Activity {
 
                         System.out.println("NAME" + str_user_name);
                         System.out.println("ID" + str_reg_id);
+
+                        session.createLoginSession(str_user_name, str_reg_id);
 
                         Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
                         startActivity(i);
