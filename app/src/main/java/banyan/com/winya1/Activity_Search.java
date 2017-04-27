@@ -88,7 +88,7 @@ public class Activity_Search extends AppCompatActivity {
             public void onClick(View view) {
 
                 System.out.println("Apply Now Clicked");
-
+                // Intent
                 Intent i = new Intent(getApplicationContext(), Activity_University_Description.class);
                 startActivity(i);
                 finish();
