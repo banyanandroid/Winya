@@ -47,5 +47,6 @@ dependencies {
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
 
     compile 'com.sdsmdg.tastytoast:tastytoast:0.0.1'    //Alert Toast
+    compile 'com.github.d-max:spots-dialog:0.4@aar'// Spots
 
 }

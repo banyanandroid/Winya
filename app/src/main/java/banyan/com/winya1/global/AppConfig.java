@@ -6,6 +6,9 @@ package banyan.com.winya1.global;
 
 public class AppConfig {
 
-    public static String url_login_authentication = "http://epictech.in/winya1/android/user_login_validation.php";
+    public static String bae_url = "http://epictech.in/winya1/android/";
+
+    public static String url_login_authentication = bae_url + "user_login_validation.php";
+    public static String url_country = bae_url + "get_country.php";
 
 }

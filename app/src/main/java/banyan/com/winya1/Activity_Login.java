@@ -29,6 +29,7 @@ import java.util.Map;
 
 import banyan.com.winya1.global.AppConfig;
 import banyan.com.winya1.global.SessionManager;
+import dmax.dialog.SpotsDialog;
 
 public class Activity_Login extends Activity {
 
@@ -40,7 +41,7 @@ public class Activity_Login extends Activity {
 
     // Session Manager Class
     SessionManager session;
-
+    SpotsDialog dialog;
     public static RequestQueue queue;
 
     private static final String TAG_NAME = "name";
@@ -84,6 +85,8 @@ public class Activity_Login extends Activity {
                     edt_password.setError("Please Enter Password");
                 } else {
 
+                    dialog = new SpotsDialog(Activity_Login.this);
+                    dialog.show();
                     queue = Volley.newRequestQueue(Activity_Login.this);
                     Function_Login();
                 }
@@ -111,6 +114,8 @@ public class Activity_Login extends Activity {
 
                     if (success == 1) {
 
+                        dialog.dismiss();
+
                         JSONArray arr;
                         arr = obj.getJSONArray("login_user");
 
@@ -134,6 +139,8 @@ public class Activity_Login extends Activity {
                     } else {
                         TastyToast.makeText(getApplicationContext(), "Oops...! Login Failed :(", TastyToast.LENGTH_LONG, TastyToast.ERROR);
                     }
+
+                    dialog.dismiss();
                 } catch (JSONException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
