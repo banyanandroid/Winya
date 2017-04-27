@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Winya</string>
+    <string name="description">We are a Australia and New Zealand based International Student Education Placement Firm. Our focus is to provide assistance to International Students on quality education and allied services free of cost.
+\n
+        \n
+We constantly engage with the student community in Australia and New Zealand to understand their pain points and challenges, suggest and assist in overcoming them. Join our facebook buddy program to know more.</string>
+    <string name="development">For you to study in Australia and New Zealand your course must meet the respective Countries requirements for international students. Universities prefer applicants with very good academic background and decent scores in TOEFL or IELTS for admission. We provide you assistance in getting IELTS coaching and exams.</string>
+
+    <string name="expand">Search Now</string>
+
+    <string name="univ_description">We make lives better by producing leaders of society and equipping our people with leadership qualities so they can serve our communities at every level.
+    \n
+        \n
+        Progressive thinking, breaking with convention, challenging the status quo and improving the world around us are in our DNA.
+    \n
+        \n
+        When William Charles Wentworth proposed the idea of Australia’s first university in 1850, he imagined “the opportunity for the child of every class to become great and useful in the destinies of this country”.
+
+We’ve stayed true to that original value and purpose by promoting inclusion and diversity for the past 160 years.</string>
+
+
+    <string-array name="year_of_study">
+        <item>2017</item>
+        <item>2018</item>
+        <item>2019</item>
+    </string-array>
+
+</resources>
