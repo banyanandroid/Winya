@@ -9,15 +9,10 @@
 
     <color name="txt_white">#FFFFFF</color>
     <color name="txt_gray">#424242</color>
+    <color name="txt_black">#000000</color>
 
-
-    <string-array name="movie_serial_bg">
-        <item>#24c6d5</item>
-        <item>#57dd86</item>
-        <item>#ad7dcf</item>
-        <item>#ff484d</item>
-        <item>#fcba59</item>
-        <item>#24c6d5</item>
-    </string-array>
+    <color name="Alert_Success">#4CAF50</color>
+    <color name="Alert_Fail">#F44336</color>
+    <color name="Alert_Warning">#FFC107</color>
 
 </resources>

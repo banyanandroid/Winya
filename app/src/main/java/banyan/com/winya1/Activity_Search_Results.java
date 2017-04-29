@@ -9,9 +9,11 @@ import android.widget.ListView;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONArray;
@@ -30,24 +32,24 @@ import dmax.dialog.SpotsDialog;
 import static banyan.com.winya1.Activity_Search.queue;
 
 
-public class Activity_Search_Results extends AppCompatActivity {
+public class Activity_Search_Results extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ListView List;
 
-    // Session Manager Class
-    SessionManager session;
-
-    String str_name;
-    public static String str_id;
+    public static RequestQueue queue;
 
     String TAG = "";
 
-    String str_country_id, str_course_id = "";
+    String str_country_id, str_course = "";
 
-    public static final String TAG_College_Name = "college_name";
-    public static final String TAG_College_Desc = "college_details";
-    public static final String TAG_College_Founded_Year = "founded_year";
-
+    public static final String TAG_COLLEGE_NAME = "college_name";
+    public static final String TAG_COLLEGE_PHOTO = "college_photo";
+    public static final String TAG_COLLEGE_ADDRESS = "college_address";
+    public static final String TAG_COLLEGE_FOUNDED_YEAR = "founded_year";
+    public static final String TAG_COLLEGE_TYPE = "type";
+    public static final String TAG_COLLEGE_INTAKE = "intake";
+    public static final String TAG_COLLEGE_DETAILS = "college_details";
 
     static ArrayList<HashMap<String, String>> search_result_list;
 
@@ -55,28 +57,56 @@ public class Activity_Search_Results extends AppCompatActivity {
 
     public Search_Adapter adapter;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        search_result_list = new ArrayList<HashMap<String, String>>();
-        List = (ListView) findViewById(R.id.search_results_listview);
+        List = (ListView) findViewById(R.id.swipe_refresh_layout_search_univ);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout_search_univ);
 
-        session = new SessionManager(getApplicationContext());
-        session.checkLogin();
-        // get user data from session
-        HashMap<String, String> user = session.getUserDetails();
-        str_name = user.get(SessionManager.KEY_USER);
-        str_id = user.get(SessionManager.KEY_USER_ID);
+        swipeRefreshLayout.setOnRefreshListener(Activity_Search_Results.this);
+
+        swipeRefreshLayout.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        swipeRefreshLayout.setRefreshing(true);
+
+                                        try {
+                                            queue = Volley.newRequestQueue(Activity_Search_Results.this);
+                                            Get_Search_Result();
+
+                                        } catch (Exception e) {
+                                            // TODO: handle exceptions
+                                        }
+                                    }
+                                }
+        );
+
+        // Hashmap for ListView
+        search_result_list = new ArrayList<HashMap<String, String>>();
 
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         str_country_id = sharedPreferences.getString("str_selected_country_id", "str_selected_country_id");
-        str_course_id = sharedPreferences.getString("str_selected_course_id", "str_selected_course_id");
+        str_course = sharedPreferences.getString("str_selected_course_id", "str_selected_course_id");
 
 
+    }
+
+    /**
+     * This method is called when swipe refresh is pulled down
+     */
+    @Override
+    public void onRefresh() {
+        try {
+            search_result_list.clear();
+            queue = Volley.newRequestQueue(Activity_Search_Results.this);
+            Get_Search_Result();
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
 
@@ -84,7 +114,7 @@ public class Activity_Search_Results extends AppCompatActivity {
      * GET Search Results
      ***************************/
 
-    public void GetMyAppointment() {
+    public void Get_Search_Result() {
 
         String tag_json_obj = "json_obj_req";
         System.out.println("CAME 1");
@@ -107,17 +137,25 @@ public class Activity_Search_Results extends AppCompatActivity {
                         for (int i = 0; arr.length() > i; i++) {
                             JSONObject obj1 = arr.getJSONObject(i);
 
-                            String id = obj1.getString(TAG_College_Name);
-                            String date = obj1.getString(TAG_College_Desc);
-                            String time = obj1.getString(TAG_College_Founded_Year);
+                            String name = obj1.getString(TAG_COLLEGE_NAME);
+                            String photo = obj1.getString(TAG_COLLEGE_PHOTO);
+                            String address = obj1.getString(TAG_COLLEGE_ADDRESS);
+                            String founded = obj1.getString(TAG_COLLEGE_FOUNDED_YEAR);
+                            String type = obj1.getString(TAG_COLLEGE_TYPE);
+                            String intake = obj1.getString(TAG_COLLEGE_INTAKE);
+                            String details = obj1.getString(TAG_COLLEGE_DETAILS);
 
                             // creating new HashMap
                             HashMap<String, String> map = new HashMap<String, String>();
 
                             // adding each child node to HashMap key => value
-                            map.put(TAG_College_Name, id);
-                            map.put(TAG_College_Desc, date);
-                            map.put(TAG_College_Founded_Year, time);
+                            map.put(TAG_COLLEGE_NAME, name);
+                            map.put(TAG_COLLEGE_PHOTO, photo);
+                            map.put(TAG_COLLEGE_ADDRESS, address);
+                            map.put(TAG_COLLEGE_FOUNDED_YEAR, founded);
+                            map.put(TAG_COLLEGE_TYPE, type);
+                            map.put(TAG_COLLEGE_INTAKE, intake);
+                            map.put(TAG_COLLEGE_DETAILS, details);
 
                             search_result_list.add(map);
 
@@ -139,7 +177,7 @@ public class Activity_Search_Results extends AppCompatActivity {
                         Alerter.create(Activity_Search_Results.this)
                                 .setTitle("WINYA")
                                 .setText("Data Not Found :( \n Try Again")
-                                .setBackgroundColor(R.color.colorPrimaryDark)
+                                .setBackgroundColor(R.color.Alert_Fail)
                                 .show();
                     }
 
@@ -169,9 +207,11 @@ public class Activity_Search_Results extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("reg_id", str_id); // replace as str_id
+                params.put("country", str_country_id); // replace as str_id
+                params.put("course", str_course);
 
-                System.out.println("reg_id" + str_id);
+                System.out.println("country" + str_country_id);
+                System.out.println("course" + str_course);
 
                 return params;
             }

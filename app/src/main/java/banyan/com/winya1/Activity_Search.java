@@ -105,36 +105,21 @@ public class Activity_Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (str_selected_country_id.isEmpty()&& str_selected_course_id.isEmpty()){
-
+                if (str_selected_country_id.isEmpty() && str_selected_course_id.isEmpty()) {
                     auto_country.setError("");
                     auto_course.setError("");
                     TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                }else {
-
+                } else {
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
                     SharedPreferences.Editor editor = sharedPreferences.edit();
-
-                    //Put Selected item strings to share
                     editor.putString("str_selected_country_id", str_selected_country_id);
-                    editor.putString("str_selected_course_id", str_selected_course_id);
-
+                    editor.putString("str_selected_course_id", str_selected_course);
                     editor.commit();
 
                     Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
                     startActivity(i);
                     finish();
-
-                    System.out.println(str_selected_country);
-                    System.out.println(str_selected_country_id);
-                    System.out.println(str_selected_course);
-                    System.out.println(str_selected_course_id);
-
-
-
                 }
-
 
 
             }

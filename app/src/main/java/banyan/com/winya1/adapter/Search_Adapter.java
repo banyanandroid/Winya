@@ -7,8 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,7 +35,7 @@ public class Search_Adapter extends BaseAdapter {
     public Search_Adapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
         data = d;
-        bgColors = activity.getApplicationContext().getResources().getStringArray(R.array.movie_serial_bg);
+//        bgColors = activity.getApplicationContext().getResources().getStringArray(R.array.movie_serial_bg);
         inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -52,29 +56,52 @@ public class Search_Adapter extends BaseAdapter {
         if (convertView == null)
             v = inflater.inflate(R.layout.list_item_search_results, null);
 
-        TextView college_title = (TextView) v.findViewById(R.id.list_college_title);
-        TextView college_description = (TextView) v.findViewById(R.id.list_college_description);
-        TextView college_founded_year = (TextView) v.findViewById(R.id.list_college_founded_year);
+        TextView college_title = (TextView) v.findViewById(R.id.list_college_name);
+        TextView college_since = (TextView) v.findViewById(R.id.list_since);
+        TextView college_descrip = (TextView) v.findViewById(R.id.list_description);
+        TextView college_location = (TextView) v.findViewById(R.id.list_location);
+        ImageView college_image = (ImageView) v.findViewById(R.id.complaint_complete_img);
+        ImageView country_img = (ImageView) v.findViewById(R.id.list_img_location_flag);
 
 
         HashMap<String, String> result = new HashMap<String, String>();
         result = data.get(position);
 
         try {
+            college_title.setText(result.get(Activity_Search_Results.TAG_COLLEGE_NAME));
+            college_since.setText(result.get(Activity_Search_Results.TAG_COLLEGE_FOUNDED_YEAR));
+            college_descrip.setText(result.get(Activity_Search_Results.TAG_COLLEGE_DETAILS));
+            college_location.setText(result.get(Activity_Search_Results.TAG_COLLEGE_ADDRESS));
 
-            college_title.setText(result.get(Activity_Search_Results.TAG_College_Name).substring(0,1));
+            String str_college_img = result.get(Activity_Search_Results.TAG_COLLEGE_PHOTO);
 
-        }catch (Exception e) {
+            if (!str_college_img.equals("")) {
+
+                Glide.with(activity.getApplicationContext()).load(str_college_img)
+                        .thumbnail(0.5f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(college_image);
+
+            } else {
+
+            }
+            String str_country_img = result.get(Activity_Search_Results.TAG_COLLEGE_ADDRESS);
+            if (!str_country_img.equals("")) {
+
+                Glide.with(activity.getApplicationContext()).load(str_country_img)
+                        .thumbnail(0.5f)
+                        .crossFade()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .into(country_img);
+
+            } else {
+
+            }
+
+        } catch (Exception e) {
 
         }
-
-        college_title.setText(result.get(Activity_Search_Results.TAG_College_Name));
-        college_description.setText(result.get(Activity_Search_Results.TAG_College_Desc));
-        college_founded_year.setText(result.get(Activity_Search_Results.TAG_College_Founded_Year));
-
-
-        String color = bgColors[position % bgColors.length];
-        college_title.setBackgroundColor(Color.parseColor(color));
 
         return v;
 
