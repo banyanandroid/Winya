@@ -37,7 +37,7 @@
 
         <activity
             android:name=".Activity_Search_Results"
-            android:label="Suggestions"
+            android:label="Winya Education"
             android:screenOrientation="portrait"></activity>
 
         <activity

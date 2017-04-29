@@ -71,7 +71,7 @@ public class Search_Adapter extends BaseAdapter {
             college_title.setText(result.get(Activity_Search_Results.TAG_COLLEGE_NAME));
             college_since.setText(result.get(Activity_Search_Results.TAG_COLLEGE_FOUNDED_YEAR));
             college_descrip.setText(result.get(Activity_Search_Results.TAG_COLLEGE_DETAILS));
-            college_location.setText(result.get(Activity_Search_Results.TAG_COLLEGE_ADDRESS));
+            college_location.setText(result.get(Activity_Search_Results.TAG_COUNTRY_NAME));
 
             String str_college_img = result.get(Activity_Search_Results.TAG_COLLEGE_PHOTO);
 
@@ -86,7 +86,7 @@ public class Search_Adapter extends BaseAdapter {
             } else {
 
             }
-            String str_country_img = result.get(Activity_Search_Results.TAG_COLLEGE_ADDRESS);
+            String str_country_img = result.get(Activity_Search_Results.TAG_COUNTRY_IMAGE);
             if (!str_country_img.equals("")) {
 
                 Glide.with(activity.getApplicationContext()).load(str_country_img)

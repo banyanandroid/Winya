@@ -1,9 +1,13 @@
 package banyan.com.winya1;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.ListView;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -43,7 +47,11 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
 
     String str_country_id, str_course = "";
 
+    private Toolbar mToolbar;
+
     public static final String TAG_COLLEGE_NAME = "college_name";
+    public static final String TAG_COUNTRY_NAME = "country_name";
+    public static final String TAG_COUNTRY_IMAGE = "country_image";
     public static final String TAG_COLLEGE_PHOTO = "college_photo";
     public static final String TAG_COLLEGE_ADDRESS = "college_address";
     public static final String TAG_COLLEGE_FOUNDED_YEAR = "founded_year";
@@ -62,16 +70,35 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        List = (ListView) findViewById(R.id.swipe_refresh_layout_search_univ);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+
+        isInternetOn();
+
+        List = (ListView) findViewById(R.id.search_results_listview_search_univ);
         swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh_layout_search_univ);
 
         swipeRefreshLayout.setOnRefreshListener(Activity_Search_Results.this);
+
+
+        // Hashmap for ListView
+        search_result_list = new ArrayList<HashMap<String, String>>();
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        str_country_id = sharedPreferences.getString("str_selected_country_id", "str_selected_country_id");
+        str_course = sharedPreferences.getString("str_selected_course_id", "str_selected_course_id");
 
         swipeRefreshLayout.post(new Runnable() {
                                     @Override
                                     public void run() {
                                         swipeRefreshLayout.setRefreshing(true);
 
+                                        if (str_country_id.equals("str_selected_country_id")) {
+                                            str_country_id = "0";
+                                        } else if (str_course.equals("str_selected_course_id")) {
+                                            str_course = "0";
+                                        }
                                         try {
                                             queue = Volley.newRequestQueue(Activity_Search_Results.this);
                                             Get_Search_Result();
@@ -82,16 +109,6 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                                     }
                                 }
         );
-
-        // Hashmap for ListView
-        search_result_list = new ArrayList<HashMap<String, String>>();
-
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-        str_country_id = sharedPreferences.getString("str_selected_country_id", "str_selected_country_id");
-        str_course = sharedPreferences.getString("str_selected_course_id", "str_selected_course_id");
-
-
     }
 
     /**
@@ -117,13 +134,13 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
     public void Get_Search_Result() {
 
         String tag_json_obj = "json_obj_req";
-        System.out.println("CAME 1");
+
         StringRequest request = new StringRequest(Request.Method.POST,
                 AppConfig.url_search_results, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 Log.d(TAG, response.toString());
+                System.out.println("CAME RESPONSE ::: " + response.toString());
                 try {
                     JSONObject obj = new JSONObject(response);
                     int success = obj.getInt("success");
@@ -138,6 +155,8 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                             JSONObject obj1 = arr.getJSONObject(i);
 
                             String name = obj1.getString(TAG_COLLEGE_NAME);
+                            String country_name = obj1.getString(TAG_COUNTRY_NAME);
+                            String country_image = obj1.getString(TAG_COUNTRY_IMAGE);
                             String photo = obj1.getString(TAG_COLLEGE_PHOTO);
                             String address = obj1.getString(TAG_COLLEGE_ADDRESS);
                             String founded = obj1.getString(TAG_COLLEGE_FOUNDED_YEAR);
@@ -150,6 +169,8 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
 
                             // adding each child node to HashMap key => value
                             map.put(TAG_COLLEGE_NAME, name);
+                            map.put(TAG_COUNTRY_NAME, country_name);
+                            map.put(TAG_COUNTRY_IMAGE, country_image);
                             map.put(TAG_COLLEGE_PHOTO, photo);
                             map.put(TAG_COLLEGE_ADDRESS, address);
                             map.put(TAG_COLLEGE_FOUNDED_YEAR, founded);
@@ -210,8 +231,8 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                 params.put("country", str_country_id); // replace as str_id
                 params.put("course", str_course);
 
-                System.out.println("country" + str_country_id);
-                System.out.println("course" + str_course);
+                System.out.println("country ::: " + str_country_id);
+                System.out.println("course ::: " + str_course);
 
                 return params;
             }
@@ -222,5 +243,48 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
         queue.add(request);
     }
 
+
+    /***********************************
+     *  Internet Connection
+     * ************************************/
+
+    public final boolean isInternetOn() {
+
+        // get Connectivity Manager object to check connection
+        ConnectivityManager connec =
+                (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
+
+        // Check for network connections
+        if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
+                connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
+
+            // if connected with internet
+
+            //Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
+            return true;
+
+        } else if (
+                connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
+                        connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
+
+            new AlertDialog.Builder(Activity_Search_Results.this)
+                    .setTitle("GEM CRM")
+                    .setMessage("Oops no internet !")
+                    .setIcon(R.mipmap.ic_launcher)
+                    .setPositiveButton("Ok",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog,
+                                                    int which) {
+                                    // TODO Auto-generated method stub
+
+                                }
+                            }).show();
+            return false;
+        }
+        return false;
+    }
 
 }

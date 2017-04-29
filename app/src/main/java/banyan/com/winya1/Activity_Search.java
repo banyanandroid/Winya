@@ -105,9 +105,12 @@ public class Activity_Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                System.out.println("COUNTRY : " + str_selected_country_id);
+                System.out.println("COURSE : " + str_selected_course);
+
                 if (str_selected_country_id.isEmpty() && str_selected_course_id.isEmpty()) {
-                    auto_country.setError("");
-                    auto_course.setError("");
+                    auto_country.setError("Please Select Country");
+                    auto_course.setError("Please Select Course");
                     TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
                 } else {
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -275,8 +278,10 @@ public class Activity_Search extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                                         long arg3) {
                                     t1 = (TextView) arg1;
-                                    str_selected_course = t1.getText().toString();
+                                    String str_select ;
+                                    str_select = t1.getText().toString();
                                     str_selected_course_id = Arraylist_course_id.get(arg2);
+                                    str_selected_course = Arraylist_course_title.get(arg2);
                                 }
                             });
 
