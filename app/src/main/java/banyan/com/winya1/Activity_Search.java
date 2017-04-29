@@ -6,7 +6,9 @@ package banyan.com.winya1;
  */
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -84,6 +86,10 @@ public class Activity_Search extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.expand));
 
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+
+
         auto_country = (AutoCompleteTextView) findViewById(R.id.txt_apply_country);
         auto_course = (AutoCompleteTextView) findViewById(R.id.txt_apply_course);
 
@@ -99,11 +105,36 @@ public class Activity_Search extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                System.out.println("Apply Now Clicked");
-                // Intent
-                Intent i = new Intent(getApplicationContext(), Activity_University_Description.class);
-                startActivity(i);
-                finish();
+                if (str_selected_country_id.isEmpty()&& str_selected_course_id.isEmpty()){
+
+                    auto_country.setError("");
+                    auto_course.setError("");
+                    TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                }else {
+
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                    //Put Selected item strings to share
+                    editor.putString("str_selected_country_id", str_selected_country_id);
+                    editor.putString("str_selected_course_id", str_selected_course_id);
+
+                    editor.commit();
+
+                    Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
+                    startActivity(i);
+                    finish();
+
+                    System.out.println(str_selected_country);
+                    System.out.println(str_selected_country_id);
+                    System.out.println(str_selected_course);
+                    System.out.println(str_selected_course_id);
+
+
+
+                }
+
 
 
             }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background_white"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:weightSum="5">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <!-- Thumbnail Image -->
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/list_college_img"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="8dp"
+            android:background="@mipmap/ic_university" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="4"
+        android:orientation="vertical"
+        android:weightSum="3">
+
+        <!-- College Name -->
+        <TextView
+            android:id="@+id/list_college_title"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignTop="@+id/thumbnail"
+            android:layout_toRightOf="@+id/thumbnail"
+            android:layout_weight="1"
+            android:text="UNIVERSITY Name"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:orientation="horizontal"
+            android:weightSum="4">
+
+            <!-- university description-->
+            <TextView
+                android:id="@+id/list_college_description"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:text="Desription"
+                android:textColor="@color/bottom_sheet_bg_dark"
+                android:textSize="10dp" />
+
+            <!-- founded Year -->
+            <TextView
+                android:id="@+id/list_college_founded_year"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="SINCE"
+                android:textAlignment="center"
+                android:textColor="@color/bottom_sheet_bg_dark"
+                android:textSize="10dp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</LinearLayout>

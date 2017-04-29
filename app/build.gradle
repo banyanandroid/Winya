@@ -48,5 +48,7 @@ dependencies {
 
     compile 'com.sdsmdg.tastytoast:tastytoast:0.0.1'    //Alert Toast
     compile 'com.github.d-max:spots-dialog:0.4@aar'// Spots
+    compile 'com.tapadoo.android:alerter:1.0.6'//Alerter
+    compile 'com.github.d-max:spots-dialog:0.4@aar' // Progress view
 
 }
