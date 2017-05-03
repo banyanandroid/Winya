@@ -10,9 +10,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 
-/**
- * Created by Schan on 21-Apr-17.
- */
 
 public class Activity_University_Description extends AppCompatActivity implements View.OnClickListener {
 

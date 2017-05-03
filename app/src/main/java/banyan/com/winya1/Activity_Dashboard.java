@@ -104,7 +104,7 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onSheetItemSelected(@NonNull BottomSheet bottomSheet, MenuItem item) {
-        Toast.makeText(getApplicationContext(), item.getTitle() + " Clicked", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getApplicationContext(), item.getTitle() + " Clicked", Toast.LENGTH_SHORT).show();
 
         if (item.getTitle().equals("Apply Now")) {
 

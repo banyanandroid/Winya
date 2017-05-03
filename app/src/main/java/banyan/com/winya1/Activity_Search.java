@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 
@@ -47,6 +48,7 @@ public class Activity_Search extends AppCompatActivity {
     FloatingActionButton fab_search;
     AutoCompleteTextView auto_country, auto_course;
     TextView t1;
+    Button btn_search;
 
     SpotsDialog dialog;
     public static RequestQueue queue;
@@ -92,6 +94,7 @@ public class Activity_Search extends AppCompatActivity {
 
         auto_country = (AutoCompleteTextView) findViewById(R.id.txt_apply_country);
         auto_course = (AutoCompleteTextView) findViewById(R.id.txt_apply_course);
+        btn_search = (Button) findViewById(R.id.apply_btn_search);
 
         fab_search = (FloatingActionButton) findViewById(R.id.btn_fab_search);
 
@@ -127,6 +130,35 @@ public class Activity_Search extends AppCompatActivity {
 
             }
         });
+
+
+        btn_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                System.out.println("COUNTRY : " + str_selected_country_id);
+                System.out.println("COURSE : " + str_selected_course);
+
+                if (str_selected_country_id.isEmpty() && str_selected_course_id.isEmpty()) {
+                    auto_country.setError("Please Select Country");
+                    auto_course.setError("Please Select Course");
+                    TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
+                } else {
+                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putString("str_selected_country_id", str_selected_country_id);
+                    editor.putString("str_selected_course_id", str_selected_course);
+                    editor.commit();
+
+                    Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
+                    startActivity(i);
+                    finish();
+                }
+
+
+            }
+        });
+
 
         try {
             dialog = new SpotsDialog(Activity_Search.this);
@@ -278,7 +310,7 @@ public class Activity_Search extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
                                                         long arg3) {
                                     t1 = (TextView) arg1;
-                                    String str_select ;
+                                    String str_select;
                                     str_select = t1.getText().toString();
                                     str_selected_course_id = Arraylist_course_id.get(arg2);
                                     str_selected_course = Arraylist_course_title.get(arg2);
