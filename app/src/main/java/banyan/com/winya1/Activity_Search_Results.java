@@ -1,6 +1,7 @@
 package banyan.com.winya1;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v4.widget.SwipeRefreshLayout;
 
@@ -109,6 +112,57 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                                     }
                                 }
         );
+
+
+        /***********************************
+         *  LISTVIEW OnItemClick
+         * ************************************/
+
+        List.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+
+
+                String str_college_name = search_result_list.get(position).get(TAG_COLLEGE_NAME);
+                String str_country_name = search_result_list.get(position).get(TAG_COUNTRY_NAME);
+                String str_country_image = search_result_list.get(position).get(TAG_COUNTRY_IMAGE);
+                String str_college_photo = search_result_list.get(position).get(TAG_COLLEGE_PHOTO);
+                String str_college_address = search_result_list.get(position).get(TAG_COLLEGE_ADDRESS);
+                String str_college_founded_year = search_result_list.get(position).get(TAG_COLLEGE_FOUNDED_YEAR);
+                String str_college_type = search_result_list.get(position).get(TAG_COLLEGE_TYPE);
+                String str_college_intake = search_result_list.get(position).get(TAG_COLLEGE_INTAKE);
+                String str_college_details = search_result_list.get(position).get(TAG_COLLEGE_DETAILS);
+
+                SharedPreferences sharedPreferences = PreferenceManager
+                        .getDefaultSharedPreferences(getApplicationContext());
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("str_college_name", str_college_name);
+                editor.putString("str_country_name", str_country_name);
+                editor.putString("str_country_image", str_country_image);
+                editor.putString("str_college_photo", str_college_photo);
+                editor.putString("str_college_address", str_college_address);
+                editor.putString("str_college_founded_year", str_college_founded_year);
+                editor.putString("str_college_type", str_college_type);
+                editor.putString("str_college_intake", str_college_intake);
+                editor.putString("str_college_details", str_college_details);
+
+
+                editor.commit();
+
+                Intent i = new Intent(getApplicationContext(), Activity_University_Description.class);
+                startActivity(i);
+
+
+            }
+
+        });
+
+
+
+
+
     }
 
     /**
