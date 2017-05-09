@@ -50,6 +50,11 @@
             android:label="Apply Here"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".Activity_Timeline"
+            android:label="TimeLine"
+            android:screenOrientation="portrait"></activity>
+
     </application>
 
 </manifest>

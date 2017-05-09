@@ -115,6 +115,11 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
 
             session.logoutUser();
 
+        } else if (item.getTitle().equals("Time Line")) {
+
+            Intent i = new Intent(getApplicationContext(), Activity_Timeline.class);
+            startActivity(i);
+
         }
 
 
