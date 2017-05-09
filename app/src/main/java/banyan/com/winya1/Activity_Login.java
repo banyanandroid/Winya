@@ -132,7 +132,7 @@ public class Activity_Login extends Activity {
 
                         session.createLoginSession(str_user_name, str_reg_id);
 
-                        Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                        Intent i = new Intent(getApplicationContext(), Activity_Timeline.class);
                         startActivity(i);
                         finish();
 

@@ -31,15 +31,15 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
     // Session Manager Class
     SessionManager session;
 
-    String str_name;
-    public static String str_id;
+   /* String str_name;
+    public static String str_id;*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
 
-        session = new SessionManager(getApplicationContext());
+        /*session = new SessionManager(getApplicationContext());
 
         session.checkLogin();
 
@@ -48,7 +48,7 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
 
         // name
         str_name = user.get(SessionManager.KEY_USER);
-        str_id = user.get(SessionManager.KEY_USER_ID);
+        str_id = user.get(SessionManager.KEY_USER_ID);*/
 
         fab_menu = (FloatingActionButton) findViewById(R.id.main_fab_menu);
 

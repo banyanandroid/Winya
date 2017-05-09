@@ -26,6 +26,7 @@ import java.util.Map;
 
 import banyan.com.winya1.adapter.TimeLine_Adapter;
 import banyan.com.winya1.global.AppConfig;
+import banyan.com.winya1.global.SessionManager;
 
 
 /**
@@ -47,14 +48,30 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
     TimeLine_Adapter adapter;
     String TAG = "add task";
 
+    // Session Manager Class
+    SessionManager session;
+
+    String str_name;
+    public static String str_id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-
         list_timeline=(ListView)findViewById(R.id.timeline_listview);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.timeline_swipe_refresh_layout);
+
+        session = new SessionManager(getApplicationContext());
+
+        session.checkLogin();
+
+        // get user data from session
+        HashMap<String, String> user = session.getUserDetails();
+
+        // name
+        str_name = user.get(SessionManager.KEY_USER);
+        str_id = user.get(SessionManager.KEY_USER_ID);
 
         // Hashmap for ListView
         timeline_list = new ArrayList<HashMap<String, String>>();
