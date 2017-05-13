@@ -3,6 +3,7 @@ package banyan.com.winya1;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -39,9 +40,12 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
     public static RequestQueue queue;
     private SwipeRefreshLayout swipeRefreshLayout;
 
-    String str_country;
+    String str_country , str_title , str_expected_date , str_completed_date , str_description;
 
-    public static final String TAG_COUNTRY="country_name";
+    public static final String TAG_TITLE="timeline_name";
+    public static final String TAG_EXPECTED_DATE="expected_date";
+    public static final String TAG_COMPLETED_DATE="completed_date";
+    public static final String TAG_DESCRIPTION="timline_description";
 
     static ArrayList<HashMap<String, String>> timeline_list;
     HashMap<String, String> params = new HashMap<String, String>();
@@ -53,11 +57,15 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
 
     String str_name;
     public static String str_id;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
 
         list_timeline=(ListView)findViewById(R.id.timeline_listview);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.timeline_swipe_refresh_layout);
@@ -83,9 +91,15 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
                 System.out.println("position" + position);
 
 
-                str_country = timeline_list.get(position).get(TAG_COUNTRY);
+                str_title = timeline_list.get(position).get(TAG_TITLE);
+                str_expected_date = timeline_list.get(position).get(TAG_EXPECTED_DATE);
+                str_completed_date = timeline_list.get(position).get(TAG_COMPLETED_DATE);
+                str_description = timeline_list.get(position).get(TAG_DESCRIPTION);
 
-                System.out.println("str_country" + str_country);
+                System.out.println("str_title  -- " + str_country);
+                System.out.println("str_expected_date  -- " + str_expected_date);
+                System.out.println("str_completed_date  -- " + str_completed_date);
+                System.out.println("str_description  -- " + str_description);
 
 
 
@@ -103,7 +117,7 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
                                         try {
                                             timeline_list.clear();
                                             queue = Volley.newRequestQueue(Activity_Timeline.this);
-                                            GetCountry();
+                                            GetTimeline();
 
                                         } catch (Exception e) {
                                             // TODO: handle exception
@@ -121,7 +135,7 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
         try {
             timeline_list.clear();
             queue = Volley.newRequestQueue(Activity_Timeline.this);
-            GetCountry();
+            GetTimeline();
 
         } catch (Exception e) {
             // TODO: handle exception
@@ -129,12 +143,12 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
     }
 
 
-    public void  GetCountry() {
+    public void  GetTimeline() {
 
         String tag_json_obj = "json_obj_req";
         System.out.println("CAME 1");
-        StringRequest request = new StringRequest(Request.Method.GET,
-                AppConfig.url_country, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST,
+                AppConfig.url_timeline, new Response.Listener<String>() {
 
             @Override
             public void onResponse(String response) {
@@ -142,35 +156,63 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
                 try {
                     JSONObject obj = new JSONObject(response);
 
-                    JSONArray arr;
 
-                    arr = obj.getJSONArray("course");
+                    int success = obj.getInt("success");
 
-                    System.out.println(arr);
+                    if (success == 1) {
 
-                    for (int i = 0; arr.length() > i; i++) {
-                        JSONObject obj1 = arr.getJSONObject(i);
+                        JSONArray arr;
 
-                        String country1 = obj1.getString(TAG_COUNTRY);
+                        arr = obj.getJSONArray("timeline");
 
+                        for (int i = 0; arr.length() > i; i++) {
 
-                        HashMap<String, String> map = new HashMap<String, String>();
+                            JSONObject obj1 = arr.getJSONObject(i);
+                            System.out.println(arr);
 
-                        // adding each child node to HashMap key => value
-                        map.put(TAG_COUNTRY, country1);
-
-
-                       timeline_list.add(map);
-
-                        System.out.println("HASHMAP ARRAY" + timeline_list);
+                            String Title_1 = obj1.getString(TAG_TITLE);
+                            String Exp_date1 = obj1.getString(TAG_EXPECTED_DATE);
+                            String Comp_date1 = obj1.getString(TAG_COMPLETED_DATE);
+                            String Desc_1 = obj1.getString(TAG_DESCRIPTION);
 
 
-                        adapter = new TimeLine_Adapter(Activity_Timeline.this,
-                                timeline_list);
-                        list_timeline.setAdapter(adapter);
+                            HashMap<String, String> map = new HashMap<String, String>();
+
+                            // adding each child node to HashMap key => value
+                            map.put(TAG_TITLE, Title_1);
+                            map.put(TAG_EXPECTED_DATE, Exp_date1);
+                            map.put(TAG_COMPLETED_DATE, Comp_date1);
+                            map.put(TAG_DESCRIPTION, Desc_1);
 
 
+                            timeline_list.add(map);
+
+                            System.out.println("HASHMAP ARRAY" + timeline_list);
+
+
+                            adapter = new TimeLine_Adapter(Activity_Timeline.this,
+                                    timeline_list);
+                            list_timeline.setAdapter(adapter);
+
+
+                        }
+
+                        Alerter.create(Activity_Timeline.this)
+                                .setTitle("WINYA")
+                                .setText("Applied Sucessfully :)")
+                                .setBackgroundColor(R.color.Alert_Success)
+                                .show();
+
+
+                    } else {
+
+                        Alerter.create(Activity_Timeline.this)
+                                .setTitle("WINYA")
+                                .setText("Oops..! Process Failed :(")
+                                .setBackgroundColor(R.color.Alert_Fail)
+                                .show();
                     }
+
 
                     swipeRefreshLayout.setRefreshing(false);
 
@@ -200,7 +242,12 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
                 Map<String, String> params = new HashMap<String, String>();
 
 
-                params.put("str_country", str_country);
+                params.put("regs_id", str_id);
+
+                System.out.println("USER ID ----" + str_id);
+                System.out.println("USER ID ----" + str_id);
+                System.out.println("USER ID ----" + str_id);
+                System.out.println("USER ID ----" + str_id);
 
                 return params;
             }

@@ -2,6 +2,8 @@ package banyan.com.winya1.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,8 @@ public class TimeLine_Adapter extends BaseAdapter {
     private static LayoutInflater inflater = null;
 
     private String[] bgColors;
+
+
 
     public TimeLine_Adapter(Activity a, ArrayList<HashMap<String, String>> d) {
         activity = a;
@@ -50,12 +54,19 @@ public class TimeLine_Adapter extends BaseAdapter {
         if (convertView == null)
             v = inflater.inflate(R.layout.timeline_listview, null);
 
-        TextView country = (TextView) v.findViewById(R.id.timeline_country);
+
+
+
+        TextView title = (TextView) v.findViewById(R.id.timeline_title);
+        TextView exp_date = (TextView) v.findViewById(R.id.timeline_expected_date);
+        TextView comp_date = (TextView) v.findViewById(R.id.timeline_completed_date);
 
         HashMap<String, String> result = new HashMap<String, String>();
         result = data.get(position);
 
-        country.setText(result.get(Activity_Timeline.TAG_COUNTRY));
+        title.setText(result.get(Activity_Timeline.TAG_TITLE));
+        exp_date.setText("Expected Date : "+result.get(Activity_Timeline.TAG_EXPECTED_DATE));
+        comp_date.setText("Completed Date : "+result.get(Activity_Timeline.TAG_COMPLETED_DATE));
 
         return v;
 
