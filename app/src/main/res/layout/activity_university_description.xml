@@ -13,52 +13,53 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-          <com.github.florent37.arclayout.ArcLayout
-              android:id="@+id/diagonalLayout"
-              android:layout_width="match_parent"
-              android:layout_height="250dp"
-              android:layout_alignParentLeft="true"
-              android:layout_alignParentStart="true"
-              android:layout_alignParentTop="true"
-              android:elevation="10dip"
-              app:arc_cropDirection="cropOutside"
-              app:arc_height="50dp">
+        <com.github.florent37.arclayout.ArcLayout
+            android:id="@+id/diagonalLayout"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:elevation="10dip"
+            app:arc_cropDirection="cropOutside"
+            app:arc_height="50dp">
 
-              <com.flaviofaria.kenburnsview.KenBurnsView
-                  android:layout_width="match_parent"
-                  android:layout_height="match_parent"
-                  android:scaleType="centerCrop"
-                  android:src="@drawable/sydney_univ" />
+            <com.flaviofaria.kenburnsview.KenBurnsView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sydney_univ" />
 
-              <android.support.v7.widget.Toolbar
-                  android:id="@+id/toolbar"
-                  android:layout_width="match_parent"
-                  android:layout_height="?attr/actionBarSize"
-                  app:layout_collapseMode="pin"
-                  app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-          </com.github.florent37.arclayout.ArcLayout>
+        </com.github.florent37.arclayout.ArcLayout>
 
-          <android.support.design.widget.FloatingActionButton
-              android:id="@+id/btn_fab_apply"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_marginRight="20dp"
-              android:layout_marginTop="225dp"
-              android:src="@drawable/ic_add"
-              app:backgroundTint="#ce471d"
-              app:elevation="15dp"
-              app:fabSize="normal" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_fab_apply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="225dp"
+            android:src="@drawable/ic_add"
+            app:backgroundTint="#ce471d"
+            app:elevation="15dp"
+            app:fabSize="normal" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="20dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="250dp"
+            android:orientation="vertical"
+            android:padding="20dp">
 
 
             <TextView
@@ -80,16 +81,16 @@
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/since"/>
+                    android:src="@drawable/since" />
 
                 <TextView
                     android:id="@+id/txt_college_founded_year"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:fontFamily="sans-serif"
                     android:text="SINCE 1950"
-                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
                     android:textColor="#ce471d"
                     android:textSize="16sp"
                     android:textStyle="bold|italic" />
@@ -97,33 +98,63 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/txt_college_type"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Type - Private"
-                android:textColor="#ce471d"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txt_college_intake"
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/type_a" />
+
+                <TextView
+                    android:id="@+id/txt_college_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:fontFamily="sans-serif"
+                    android:text="Type - Private"
+                    android:textColor="#ce471d"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="sans-serif"
-                android:text="Intake- Jan,Feb,Apr,May "
-                android:textColor="#ce471d"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/intake" />
+
+                <TextView
+                    android:id="@+id/txt_college_intake"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:fontFamily="sans-serif"
+                    android:text="Intake- Jan,Feb,Apr,May "
+                    android:textColor="#ce471d"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_college_about_us"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:fontFamily="sans-serif"
                 android:text="About Us"
                 android:textColor="#ce471d"
@@ -135,7 +166,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:fontFamily="sans-serif"
                 android:text="@string/univ_description"
                 android:textColor="#979696"
@@ -157,7 +188,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="18dp"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
                 android:fontFamily="sans-serif"
                 android:text="Wellington Campus:\nLevels 3,4 - 6 Grand Central Tower\n76 - 86 Manners Street\nWellington CBD 6011, New Zealand"
                 android:textColor="#979696"
