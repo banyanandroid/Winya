@@ -1,10 +1,6 @@
 package banyan.com.winya1;
 
 
-/**
- * Created by Schan on 20-Apr-17.
- */
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -45,7 +41,6 @@ import dmax.dialog.SpotsDialog;
 public class Activity_Search extends AppCompatActivity {
 
 
-    FloatingActionButton fab_search;
     AutoCompleteTextView auto_country, auto_course;
     TextView t1;
     Button btn_search;
@@ -110,40 +105,12 @@ public class Activity_Search extends AppCompatActivity {
         auto_course = (AutoCompleteTextView) findViewById(R.id.txt_apply_course);
         btn_search = (Button) findViewById(R.id.apply_btn_search);
 
-        fab_search = (FloatingActionButton) findViewById(R.id.btn_fab_search);
 
         Arraylist_country_id = new ArrayList<String>();
         Arraylist_country_title = new ArrayList<String>();
 
         Arraylist_course_id = new ArrayList<String>();
         Arraylist_course_title = new ArrayList<String>();
-
-        fab_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                System.out.println("COUNTRY : " + str_selected_country_id);
-                System.out.println("COURSE : " + str_selected_course);
-
-                if (str_selected_country_id.isEmpty() && str_selected_course_id.isEmpty()) {
-                    auto_country.setError("Please Select Country");
-                    auto_course.setError("Please Select Course");
-                    TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
-                } else {
-                    SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putString("str_selected_country_id", str_selected_country_id);
-                    editor.putString("str_selected_course_id", str_selected_course);
-                    editor.commit();
-
-                    Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
-                    startActivity(i);
-                    finish();
-                }
-
-
-            }
-        });
 
 
         btn_search.setOnClickListener(new View.OnClickListener() {

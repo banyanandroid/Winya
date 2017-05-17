@@ -150,7 +150,14 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                 SharedPreferences sharedPreferences = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext());
                 SharedPreferences.Editor editor = sharedPreferences.edit();
+
+                // This is to send the country id and course while applying
+                // we will get this in the Activity_Apply_Form and Post it along with the Apply Details
+
+                editor.putString("str_course", str_course);
+
                 editor.putString("str_college_name", str_college_name);
+
                 editor.putString("str_country_name", str_country_name);
                 editor.putString("str_country_image", str_country_image);
                 editor.putString("str_college_photo", str_college_photo);
@@ -159,6 +166,8 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                 editor.putString("str_college_type", str_college_type);
                 editor.putString("str_college_intake", str_college_intake);
                 editor.putString("str_college_details", str_college_details);
+
+
 
 
                 editor.commit();
@@ -170,9 +179,6 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
             }
 
         });
-
-
-
 
 
     }

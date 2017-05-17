@@ -12,5 +12,9 @@ public class AppConfig {
     public static String url_country = bae_url + "get_country.php";
     public static String url_course = bae_url + "get_course.php";
     public static String url_search_results = bae_url + "get_college_details.php";
+    public static String url_apply = bae_url + "add_enquiry.php";
+    public static String url_timeline = bae_url + "timeline_view.php";
+
+
 
 }
