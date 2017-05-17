@@ -73,8 +73,20 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_results);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         isInternetOn();
 
@@ -339,6 +351,16 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
             return false;
         }
         return false;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // your code.
+        Intent i = new Intent(getApplicationContext(), Activity_Search.class);
+        startActivity(i);
+        finish();
+
     }
 
 }

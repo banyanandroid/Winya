@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -26,6 +27,21 @@ public class Activity_University_Description extends AppCompatActivity implement
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_university_description);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         txt_College_name = (TextView) findViewById(R.id.txt_college_name);
         txt_College_founded_year = (TextView) findViewById(R.id.txt_college_founded_year);
@@ -100,6 +116,16 @@ public class Activity_University_Description extends AppCompatActivity implement
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        // your code.
+        Intent i = new Intent(getApplicationContext(), Activity_Search_Results.class);
+        startActivity(i);
+        finish();
+
     }
 
 

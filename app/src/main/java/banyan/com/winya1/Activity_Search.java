@@ -88,6 +88,20 @@ public class Activity_Search extends AppCompatActivity {
         CollapsingToolbarLayout collapsingToolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         collapsingToolbar.setTitle(getString(R.string.expand));
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                startActivity(i);
+                finish();
+            }
+        });
+
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
 
@@ -356,5 +370,13 @@ public class Activity_Search extends AppCompatActivity {
         queue.add(request);
     }
 
+    @Override
+    public void onBackPressed() {
+        // your code.
+        Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+        startActivity(i);
+        finish();
+
+    }
 
 }

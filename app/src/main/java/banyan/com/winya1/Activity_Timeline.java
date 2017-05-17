@@ -41,7 +41,7 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
 
     String str_country;
 
-    public static final String TAG_COUNTRY="country_name";
+    public static final String TAG_COUNTRY = "country_name";
 
     static ArrayList<HashMap<String, String>> timeline_list;
     HashMap<String, String> params = new HashMap<String, String>();
@@ -59,8 +59,8 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        list_timeline=(ListView)findViewById(R.id.timeline_listview);
-        swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.timeline_swipe_refresh_layout);
+        list_timeline = (ListView) findViewById(R.id.timeline_listview);
+        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.timeline_swipe_refresh_layout);
 
         session = new SessionManager(getApplicationContext());
 
@@ -82,14 +82,9 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
 
                 System.out.println("position" + position);
 
-
                 str_country = timeline_list.get(position).get(TAG_COUNTRY);
 
                 System.out.println("str_country" + str_country);
-
-
-
-
             }
         });
 
@@ -129,7 +124,7 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
     }
 
 
-    public void  GetCountry() {
+    public void GetCountry() {
 
         String tag_json_obj = "json_obj_req";
         System.out.println("CAME 1");
@@ -160,7 +155,7 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
                         map.put(TAG_COUNTRY, country1);
 
 
-                       timeline_list.add(map);
+                        timeline_list.add(map);
 
                         System.out.println("HASHMAP ARRAY" + timeline_list);
 
