@@ -30,10 +30,6 @@ import banyan.com.winya1.global.AppConfig;
 import banyan.com.winya1.global.SessionManager;
 
 
-/**
- * Created by steve on 3/5/17.
- */
-
 public class Activity_Timeline extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     ListView list_timeline;
