@@ -213,5 +213,45 @@ public class Activity_Login extends Activity {
         return false;
     }
 
+    /***********************************
+     *  Back Click Listener
+     * ************************************/
+
+    @Override
+    public void onBackPressed() {
+
+        try {
+            String str_status = "Want to Exit?";
+            FunctionAlert(str_status);
+        } catch (Exception e) {
+
+        }
+    }
+
+    private void FunctionAlert(String status) {
+
+        new android.support.v7.app.AlertDialog.Builder(Activity_Login.this)
+                .setTitle("Winya")
+                .setMessage(status)
+                .setIcon(R.mipmap.ic_launcher)
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+
+                    }
+                })
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                // TODO Auto-generated method stub
+                                // finish();
+                                finishAffinity();
+                            }
+                        }).show();
+    }
 }
 
