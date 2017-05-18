@@ -7,7 +7,10 @@ import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -17,11 +20,11 @@ public class Activity_University_Description extends AppCompatActivity implement
     FloatingActionButton fab_apply;
 
     TextView txt_College_name, txt_College_founded_year, txt_College_type,
-            txt_College_intake, txt_College_Details, txt_College_address;
+            txt_College_intake, txt_College_Details, txt_College_address , txt_college_website;
 
 
     String str_college_name, str_country_name, str_country_image, str_college_photo, str_college_address,
-            str_college_founded_year, str_college_type, str_college_intake, str_college_details;
+            str_college_founded_year, str_college_type, str_college_intake, str_college_details , str_college_website;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,8 @@ public class Activity_University_Description extends AppCompatActivity implement
         txt_College_intake = (TextView) findViewById(R.id.txt_college_intake);
         txt_College_Details = (TextView) findViewById(R.id.txt_college_details);
         txt_College_address = (TextView) findViewById(R.id.txt_college_address);
+        txt_college_website = (TextView) findViewById(R.id.txt_college_website);
+
 
 
         fab_apply = (FloatingActionButton) findViewById(R.id.btn_fab_apply);
@@ -82,6 +87,8 @@ public class Activity_University_Description extends AppCompatActivity implement
         str_college_type = sharedPreferences.getString("str_college_type", "str_college_type");
         str_college_intake = sharedPreferences.getString("str_college_intake", "str_college_intake");
         str_college_details = sharedPreferences.getString("str_college_details", "str_college_details");
+        str_college_website = sharedPreferences.getString("str_college_website", "str_college_website");
+
 
         try {
             txt_College_name.setText(str_college_name);
@@ -90,6 +97,7 @@ public class Activity_University_Description extends AppCompatActivity implement
             txt_College_intake.setText("INTAKE - " + str_college_intake);
             txt_College_address.setText(str_college_address);
             txt_College_Details.setText(str_college_details);
+            txt_college_website.setText(str_college_website);
 
 
         } catch (Exception e) {
@@ -116,6 +124,26 @@ public class Activity_University_Description extends AppCompatActivity implement
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.share:
+
+                Intent i = new Intent(android.content.Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(android.content.Intent.EXTRA_TEXT, str_college_name + " Our Website --> " + str_college_website);
+                startActivity(Intent.createChooser(i, "Title of your share dialog"));
+                break;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+
     }
 
 

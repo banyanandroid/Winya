@@ -122,9 +122,10 @@ public class Activity_Search extends AppCompatActivity {
 
                 if (str_selected_country_id.isEmpty() && str_selected_course_id.isEmpty()) {
                     auto_country.setError("Please Select Country");
-                    auto_course.setError("Please Select Course");
+                    auto_course.setError("Please Enter Course");
                     TastyToast.makeText(getApplicationContext(), "Both Country & Course cannot be empty Please select atleast one", TastyToast.LENGTH_LONG, TastyToast.WARNING);
                 } else {
+
                     SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("str_selected_country_id", str_selected_country_id);

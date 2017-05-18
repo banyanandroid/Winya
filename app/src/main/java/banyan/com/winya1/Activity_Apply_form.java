@@ -55,7 +55,7 @@ public class Activity_Apply_form extends AppCompatActivity {
 
     RadioGroup RGroup_Course_type;
 
-    String str_name, str_email, str_mobile_num, str_year_of_study, str_course_type, str_city , str_college_name , str_course = "";
+    String str_name, str_email, str_mobile_num, str_year_of_study, str_course_type, str_city, str_college_name, str_course = "";
 
     RadioButton radio_btn_parttime, radio_btn_fulltime;
 
@@ -73,6 +73,16 @@ public class Activity_Apply_form extends AppCompatActivity {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_University_Description.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
 
         RGroup_Course_type = (RadioGroup) findViewById(R.id.form_apply_radio_group);
@@ -148,12 +158,12 @@ public class Activity_Apply_form extends AppCompatActivity {
 
                     TastyToast.makeText(getApplicationContext(), "Select Course Type", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                }else if (str_city.equals("null")) {
+                } else if (str_city.equals("null")) {
 
                     edt_city.setError("Please Enter Your City");
                     TastyToast.makeText(getApplicationContext(), "City Cannot be Empty", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                }else{
+                } else {
 
                     try {
 
@@ -170,6 +180,8 @@ public class Activity_Apply_form extends AppCompatActivity {
 
                 System.out.println("Applied successfully");
 
+                System.out.println("College  ----------->>>>>" + str_college_name);
+                System.out.println("Course ----------->>>>>" + str_course);
 
 
             }

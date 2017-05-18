@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
@@ -13,210 +14,197 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="APPLY HERE"
-            android:textColor="@color/colorAccent"
-            android:textSize="30dp"
-            android:textStyle="bold" />
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical">
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColorHint="@color/txt_black">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/form_apply_edt_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="NAME"
-                    android:inputType="text"
-                    android:textSize="18sp"
-                    android:textColor="@color/txt_black" />
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColorHint="@color/txt_black">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/form_apply_edt_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="E-Mail"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/txt_black"
-                    android:textSize="18sp" />
-            </android.support.design.widget.TextInputLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColorHint="@color/txt_black">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/form_apply_edt_mobile"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Mobile Number"
-                    android:inputType="phone"
-                    android:maxLength="10"
-                    android:textColor="@color/txt_black"
-                    android:textSize="18sp" />
-            </android.support.design.widget.TextInputLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:textColorHint="@color/txt_black">
-
-                <android.support.design.widget.TextInputEditText
-                    android:id="@+id/form_apply_edt_city"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Current City"
-                    android:inputType="text"
-                    android:textColor="@color/txt_black"
-                    android:textSize="18sp" />
-            </android.support.design.widget.TextInputLayout>
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="2">
 
             <TextView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"></TextView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
                 android:layout_weight="1"
-                android:gravity="center|start"
-                android:text="Year Of Study"
-                android:textAlignment="textStart"
-                android:textColor="@color/txt_black"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColorHint="@color/txt_black">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/form_apply_edt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="NAME"
+                        android:inputType="text"
+                        android:textColor="@color/txt_black"
+                        android:textSize="18sp" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColorHint="@color/txt_black">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/form_apply_edt_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="E-Mail"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/txt_black"
+                        android:textSize="18sp" />
+                </android.support.design.widget.TextInputLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColorHint="@color/txt_black">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/form_apply_edt_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Mobile Number"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:textColor="@color/txt_black"
+                        android:textSize="18sp" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:textColorHint="@color/txt_black">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/form_apply_edt_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Current City"
+                        android:inputType="text"
+                        android:textColor="@color/txt_black"
+                        android:textSize="18sp" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center|start"
+                    android:text="Year Of Study"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/txt_black"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/spn_year_of_study"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_two"
+                    android:entries="@array/year_of_study"
+                    android:textAlignment="center">
+
+                </Spinner>
+
+            </LinearLayout>
+
+
+            <RadioGroup
+                android:id="@+id/form_apply_radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="0.7"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <RadioButton
+                    android:id="@+id/radio_parttime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Part Time"
+                    android:textColor="@color/txt_black" />
+
+                <RadioButton
+                    android:id="@+id/radio_fulltime"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Full Time"
+                    android:textColor="@color/txt_black" />
+
+            </RadioGroup>
+
+
+            <Button
+                android:id="@+id/form_apply_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_weight="0.8"
+                android:background="@drawable/border_two"
+                android:text="SUBMIT"
+                android:textColor="@color/txt_white"
                 android:textSize="18sp" />
 
-            <Spinner
-                android:id="@+id/spn_year_of_study"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@drawable/border_two"
-                android:entries="@array/year_of_study"
-                android:textAlignment="center">
-
-            </Spinner>
 
         </LinearLayout>
-
-
-        <RadioGroup
-            android:id="@+id/form_apply_radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="2">
-
-            <RadioButton
-                android:id="@+id/radio_parttime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Part Time"
-                android:textColor="@color/txt_black" />
-
-            <RadioButton
-                android:id="@+id/radio_fulltime"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Full Time"
-                android:textColor="@color/txt_black" />
-
-
-        </RadioGroup>
-
-
-        <Button
-            android:id="@+id/form_apply_btn_submit"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:layout_weight="0.8"
-            android:background="@drawable/border_two"
-            android:text="SUBMIT"
-            android:textColor="@color/txt_white"
-            android:textSize="18sp" />
-
-
-    </LinearLayout>
 
     </ScrollView>
 

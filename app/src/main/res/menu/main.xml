@@ -4,6 +4,8 @@
     <item
         android:id="@+id/share"
         android:title="Share"
-        app:showAsAction="always" />
+        android:textColor="@color/txt_white"
+        app:showAsAction="always"
+        android:actionProviderClass="android.widget.ShareActionProvider" />
 
 </menu>

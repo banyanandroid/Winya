@@ -61,6 +61,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
     public static final String TAG_COLLEGE_TYPE = "type";
     public static final String TAG_COLLEGE_INTAKE = "intake";
     public static final String TAG_COLLEGE_DETAILS = "college_details";
+    public static final String TAG_COLLEGE_WEBSITE = "college_website";
 
     static ArrayList<HashMap<String, String>> search_result_list;
 
@@ -146,6 +147,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                 String str_college_type = search_result_list.get(position).get(TAG_COLLEGE_TYPE);
                 String str_college_intake = search_result_list.get(position).get(TAG_COLLEGE_INTAKE);
                 String str_college_details = search_result_list.get(position).get(TAG_COLLEGE_DETAILS);
+                String str_college_website = search_result_list.get(position).get(TAG_COLLEGE_WEBSITE);
 
                 SharedPreferences sharedPreferences = PreferenceManager
                         .getDefaultSharedPreferences(getApplicationContext());
@@ -166,8 +168,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                 editor.putString("str_college_type", str_college_type);
                 editor.putString("str_college_intake", str_college_intake);
                 editor.putString("str_college_details", str_college_details);
-
-
+                editor.putString("str_college_website", str_college_website);
 
 
                 editor.commit();
@@ -235,6 +236,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                             String type = obj1.getString(TAG_COLLEGE_TYPE);
                             String intake = obj1.getString(TAG_COLLEGE_INTAKE);
                             String details = obj1.getString(TAG_COLLEGE_DETAILS);
+                            String website = obj1.getString(TAG_COLLEGE_WEBSITE);
 
                             // creating new HashMap
                             HashMap<String, String> map = new HashMap<String, String>();
@@ -249,6 +251,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                             map.put(TAG_COLLEGE_TYPE, type);
                             map.put(TAG_COLLEGE_INTAKE, intake);
                             map.put(TAG_COLLEGE_DETAILS, details);
+                            map.put(TAG_COLLEGE_WEBSITE, website);
 
                             search_result_list.add(map);
 
@@ -315,28 +318,22 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
         queue.add(request);
     }
 
-
     /***********************************
      *  Internet Connection
      * ************************************/
-
     public final boolean isInternetOn() {
 
         // get Connectivity Manager object to check connection
         ConnectivityManager connec =
                 (ConnectivityManager) getSystemService(getBaseContext().CONNECTIVITY_SERVICE);
-
         // Check for network connections
         if (connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTED ||
                 connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.CONNECTING ||
                 connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTING ||
                 connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.CONNECTED) {
-
             // if connected with internet
-
             //Toast.makeText(this, " Connected ", Toast.LENGTH_LONG).show();
             return true;
-
         } else if (
                 connec.getNetworkInfo(0).getState() == android.net.NetworkInfo.State.DISCONNECTED ||
                         connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
@@ -357,8 +354,8 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
             return false;
         }
         return false;
-    }
 
+    }
 
     @Override
     public void onBackPressed() {
