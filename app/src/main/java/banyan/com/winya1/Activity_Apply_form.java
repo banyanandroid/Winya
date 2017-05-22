@@ -86,6 +86,8 @@ public class Activity_Apply_form extends AppCompatActivity {
 
 
         RGroup_Course_type = (RadioGroup) findViewById(R.id.form_apply_radio_group);
+        RGroup_Course_type.setVisibility(View.INVISIBLE);
+
         radio_btn_parttime = (RadioButton) findViewById(R.id.radio_parttime);
         radio_btn_fulltime = (RadioButton) findViewById(R.id.radio_fulltime);
 
@@ -139,31 +141,31 @@ public class Activity_Apply_form extends AppCompatActivity {
                 str_course = sharedPreferences.getString("str_course", "str_course");
 
 
-                if (str_name.equals("null")) {
+                if (str_name.equals("")) {
 
                     edt_name.setError("Please Enter Name");
                     TastyToast.makeText(getApplicationContext(), "Name cannot be Empty", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                } else if (str_email.equals("null")) {
+                } else if (str_email.equals("")) {
 
                     edt_email.setError("Please Enter Email ID");
                     TastyToast.makeText(getApplicationContext(), "Email ID cannot be Empty", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                } else if (str_mobile_num.equals("null")) {
+                } else if (str_mobile_num.equals("")) {
 
-                    edt_email.setError("Please Enter Mobile Number");
+                    edt_mobilenum.setError("Please Enter Mobile Number");
                     TastyToast.makeText(getApplicationContext(), "Mobile Number Cannot be Empty", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                } else if (str_course_type.equals("null")) {
-
-                    TastyToast.makeText(getApplicationContext(), "Select Course Type", TastyToast.LENGTH_LONG, TastyToast.WARNING);
-
-                } else if (str_city.equals("null")) {
+                }  else if (str_city.equals("")) {
 
                     edt_city.setError("Please Enter Your City");
                     TastyToast.makeText(getApplicationContext(), "City Cannot be Empty", TastyToast.LENGTH_LONG, TastyToast.WARNING);
 
-                } else {
+               // } else if (str_course_type.equals("null")) {
+
+                 //   TastyToast.makeText(getApplicationContext(), "Select Course Type", TastyToast.LENGTH_LONG, TastyToast.WARNING);
+
+                }else {
 
                     try {
 

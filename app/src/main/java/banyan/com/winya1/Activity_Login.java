@@ -35,7 +35,7 @@ public class Activity_Login extends Activity {
 
     Button btn_login;
     EditText edt_email, edt_password;
-    TextView txt_forgot_password;
+    TextView txt_forgot_password, txt_skip;
 
     String user_email, user_password;
 
@@ -68,6 +68,16 @@ public class Activity_Login extends Activity {
         edt_password = (EditText) findViewById(R.id.edt_login_password);
 
         txt_forgot_password = (TextView) findViewById(R.id.txt_forgot_password);
+        txt_skip = (TextView) findViewById(R.id.txt_skip);
+        txt_skip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
 
         btn_login.setOnClickListener(new View.OnClickListener() {
@@ -220,12 +230,9 @@ public class Activity_Login extends Activity {
     @Override
     public void onBackPressed() {
 
-        try {
-            String str_status = "Want to Exit?";
-            FunctionAlert(str_status);
-        } catch (Exception e) {
-
-        }
+        Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+        startActivity(i);
+        finish();
     }
 
     private void FunctionAlert(String status) {

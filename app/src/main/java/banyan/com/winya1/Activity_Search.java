@@ -17,6 +17,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -147,6 +148,10 @@ public class Activity_Search extends AppCompatActivity {
             dialog.show();
             queue = Volley.newRequestQueue(getApplicationContext());
             Get_Country();
+            queue = Volley.newRequestQueue(getApplicationContext());
+            Get_Course();
+
+
         } catch (Exception e) {
             // TODO: handle exception
         }
@@ -197,19 +202,13 @@ public class Activity_Search extends AppCompatActivity {
                                                         long arg3) {
                                     t1 = (TextView) arg1;
                                     str_selected_country = t1.getText().toString();
-                                    str_selected_country_id = Arraylist_country_id.get(arg2);
+                                    System.out.println("ARGGGGGGGGGGGGGGGGGGGGGGGGGGGGb : " + arg2);
+                                    str_selected_country_id = Arraylist_country_id.get(arg2 + 1);
                                 }
                             });
 
                         } catch (Exception e) {
 
-                        }
-
-                        try {
-                            queue = Volley.newRequestQueue(getApplicationContext());
-                            Get_Course();
-                        } catch (Exception e) {
-                            // TODO: handle exception
                         }
 
 
