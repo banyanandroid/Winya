@@ -113,8 +113,6 @@ public class Activity_University_Description extends AppCompatActivity implement
 
             case R.id.btn_fab_apply:
 
-                System.out.println("Clicked");
-
 
                 break;
         }

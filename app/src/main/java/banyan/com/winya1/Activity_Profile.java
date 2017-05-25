@@ -2,6 +2,7 @@ package banyan.com.winya1;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +18,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.tapadoo.alerter.Alerter;
 
 import org.json.JSONArray;
@@ -29,6 +32,7 @@ import java.util.Map;
 import banyan.com.winya1.adapter.Search_Adapter;
 import banyan.com.winya1.global.AppConfig;
 import banyan.com.winya1.global.SessionManager;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class Activity_Profile extends AppCompatActivity {
@@ -38,19 +42,25 @@ public class Activity_Profile extends AppCompatActivity {
     TextView txt_username, txt_primary_number, txt_mail_id,
             txt_university, txt_course;
 
+    TextView txt_edit;
+
+    ImageView img_edit;
+
+    CircleImageView img_profile_picture;
+
+    EditText edt_fname, edt_lname, edt_phone, edt_email, edt_addressline_one, edt_addressline_two, edt_city,
+            edt_state, edt_pincode, edt_country;
+
+    TextInputLayout txt_in_fname, txt_in_lname, txt_in_phone, txt_in_email;
+
     Button btn_update;
 
-    // Session Manager Class
     SessionManager session;
     String str_user_name;
     public static String str_user_id;
 
-    ImageView img_profile_picture;
-
-    EditText edt_addressline_one, edt_addressline_two, edt_city,
-            edt_state, edt_pincode, edt_country;
-
-    String str_first_name, str_second_name, str_mail_id, str_primary_number, str_secondary_number, str_univ_applied, str_course_applied, str_prof_picture, str_address_line_one, str_address_line_two, str_city, str_state, str_pincode, str_country = "";
+    String str_first_name, str_second_name, str_mail_id, str_primary_number, str_secondary_number, str_univ_applied, str_course_applied, str_prof_picture, str_address_line_one, str_address_line_two, str_city, str_state, str_pincode, str_country, str_img = "";
+    String str_get_first_name, str_get_second_name, str_get_mail_id, str_get_primary_number, str_get_secondary_number, str_get_univ_applied, str_get_course_applied, str_get_address_line_one, str_get_address_line_two, str_get_city, str_get_state, str_get_pincode, str_get_country = "";
 
     public static RequestQueue queue;
 
@@ -96,22 +106,31 @@ public class Activity_Profile extends AppCompatActivity {
 
         session.checkLogin();
 
-        // get user data from session
         HashMap<String, String> user = session.getUserDetails();
-
-        // name
         str_user_name = user.get(SessionManager.KEY_USER);
         str_user_id = user.get(SessionManager.KEY_USER_ID);
 
-        btn_update = (Button) findViewById(R.id.btn_update);
+        btn_update = (Button) findViewById(R.id.profile_btn_update);
 
-        img_profile_picture = (ImageView) findViewById(R.id.user_profile_picture);
+        img_profile_picture = (CircleImageView) findViewById(R.id.user_profile_picture);
+        img_edit = (ImageView) findViewById(R.id.profile_img_edit);
+        txt_edit = (TextView) findViewById(R.id.profile_txt_edit);
 
         txt_username = (TextView) findViewById(R.id.txt_username);
         txt_primary_number = (TextView) findViewById(R.id.txt_primary_mobile_num);
         txt_mail_id = (TextView) findViewById(R.id.txt_mail_id);
         txt_university = (TextView) findViewById(R.id.txt_applied_univ);
         txt_course = (TextView) findViewById(R.id.txt_course_applied);
+
+        txt_in_fname = (TextInputLayout) findViewById(R.id.txt_in_fname);
+        txt_in_lname = (TextInputLayout) findViewById(R.id.txt_in_lname);
+        txt_in_phone = (TextInputLayout) findViewById(R.id.txt_in_phone);
+        txt_in_email = (TextInputLayout) findViewById(R.id.txt_in_email);
+
+        edt_fname = (EditText) findViewById(R.id.first_name);
+        edt_lname = (EditText) findViewById(R.id.last_name);
+        edt_phone = (EditText) findViewById(R.id.phone_number);
+        edt_email = (EditText) findViewById(R.id.email);
 
         edt_addressline_one = (EditText) findViewById(R.id.addressline_one);
         edt_addressline_two = (EditText) findViewById(R.id.addressline_two);
@@ -120,6 +139,23 @@ public class Activity_Profile extends AppCompatActivity {
         edt_pincode = (EditText) findViewById(R.id.pincode);
         edt_country = (EditText) findViewById(R.id.country);
 
+        edt_addressline_one.setFocusable(false);
+        edt_addressline_one.setEnabled(false);
+
+        edt_addressline_two.setFocusable(false);
+        edt_addressline_two.setEnabled(false);
+
+        edt_city.setFocusable(false);
+        edt_city.setEnabled(false);
+
+        edt_state.setFocusable(false);
+        edt_state.setEnabled(false);
+
+        edt_pincode.setFocusable(false);
+        edt_pincode.setEnabled(false);
+
+        edt_country.setFocusable(false);
+        edt_country.setEnabled(false);
 
         try {
             queue = Volley.newRequestQueue(Activity_Profile.this);
@@ -129,26 +165,109 @@ public class Activity_Profile extends AppCompatActivity {
             // TODO: handle exceptions
         }
 
+        txt_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-        try {
-            txt_username.setText(str_first_name);
-            txt_primary_number.setText(str_primary_number);
-            txt_mail_id.setText(str_mail_id);
-            txt_university.setText(str_univ_applied);
-            txt_course.setText(str_course_applied);
+                txt_in_fname.setVisibility(View.VISIBLE);
+                txt_in_lname.setVisibility(View.VISIBLE);
+                txt_in_phone.setVisibility(View.VISIBLE);
+                txt_in_email.setVisibility(View.VISIBLE);
 
-            edt_addressline_one.setText(str_address_line_one);
-            edt_addressline_two.setText(str_address_line_two);
-            edt_city.setText(str_city);
-            edt_state.setText(str_state);
-            edt_pincode.setText(str_pincode);
-            edt_country.setText(str_country);
+                btn_update.setVisibility(View.VISIBLE);
 
+                edt_addressline_one.setFocusable(true);
+                edt_addressline_one.setEnabled(true);
 
-        } catch (Exception e) {
+                edt_addressline_two.setFocusable(true);
+                edt_addressline_two.setEnabled(true);
 
-        }
+                edt_city.setFocusable(true);
+                edt_city.setEnabled(true);
 
+                edt_state.setFocusable(true);
+                edt_state.setEnabled(true);
+
+                edt_pincode.setFocusable(true);
+                edt_pincode.setEnabled(true);
+
+                edt_country.setFocusable(true);
+                edt_country.setEnabled(true);
+
+            }
+        });
+
+        img_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                txt_in_fname.setVisibility(View.VISIBLE);
+                txt_in_lname.setVisibility(View.VISIBLE);
+                txt_in_phone.setVisibility(View.VISIBLE);
+                txt_in_email.setVisibility(View.VISIBLE);
+
+                btn_update.setVisibility(View.VISIBLE);
+
+                edt_addressline_one.setFocusable(true);
+                edt_addressline_one.setEnabled(true);
+
+                edt_addressline_two.setFocusable(true);
+                edt_addressline_two.setEnabled(true);
+
+                edt_city.setFocusable(true);
+                edt_city.setEnabled(true);
+
+                edt_state.setFocusable(true);
+                edt_state.setEnabled(true);
+
+                edt_pincode.setFocusable(true);
+                edt_pincode.setEnabled(true);
+
+                edt_country.setFocusable(true);
+                edt_country.setEnabled(true);
+
+            }
+        });
+
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                txt_in_fname.setVisibility(View.GONE);
+                txt_in_lname.setVisibility(View.GONE);
+                txt_in_phone.setVisibility(View.GONE);
+                txt_in_email.setVisibility(View.GONE);
+
+                edt_addressline_one.setFocusable(false);
+                edt_addressline_one.setEnabled(false);
+
+                edt_addressline_two.setFocusable(false);
+                edt_addressline_two.setEnabled(false);
+
+                edt_city.setFocusable(false);
+                edt_city.setEnabled(false);
+
+                edt_state.setFocusable(false);
+                edt_state.setEnabled(false);
+
+                edt_pincode.setFocusable(false);
+                edt_pincode.setEnabled(false);
+
+                edt_country.setFocusable(false);
+                edt_country.setEnabled(false);
+
+                str_get_first_name = edt_fname.getText().toString();
+                str_get_second_name = edt_lname.getText().toString();
+                str_get_mail_id = edt_email.getText().toString();
+                str_get_primary_number = edt_phone.getText().toString();
+                str_get_address_line_one = edt_addressline_one.getText().toString();
+                str_get_address_line_two = edt_addressline_two.getText().toString();
+                str_get_city = edt_city.getText().toString();
+                str_get_state = edt_state.getText().toString();
+                str_get_pincode = edt_pincode.getText().toString();
+                str_get_country = edt_country.getText().toString();
+            }
+        });
 
     }
 
@@ -176,6 +295,7 @@ public class Activity_Profile extends AppCompatActivity {
                         arr = obj.getJSONArray("datas");
 
                         for (int i = 0; arr.length() > i; i++) {
+
                             JSONObject obj1 = arr.getJSONObject(i);
 
                             str_first_name = obj1.getString(TAG_USER_FIRST_NAME);
@@ -193,26 +313,41 @@ public class Activity_Profile extends AppCompatActivity {
                             str_pincode = obj1.getString(TAG_PINCODE);
                             str_country = obj1.getString(TAG_COUNTRY);
 
-                            // creating new HashMap
-                            HashMap<String, String> map = new HashMap<String, String>();
-                            // adding each child node to HashMap key => value
+                        }
 
-                            map.put(TAG_USER_FIRST_NAME, str_first_name);
-                            map.put(TAG_USER_SECOND_NAME, str_second_name);
-                            map.put(TAG_MAIL_ID, str_mail_id);
-                            map.put(TAG_PRIMARY_NUMBER, str_primary_number);
-                            map.put(TAG_SECONDARY_NUMBER, str_secondary_number);
-                            map.put(TAG_UNIVERSITY_APPLIED, str_univ_applied);
-                            map.put(TAG_COURSE_APPLIED, str_course_applied);
-                            map.put(TAG_PROFILE_PICTURE, str_prof_picture);
-                            map.put(TAG_ADDRESS_LINE_ONE, str_address_line_one);
-                            map.put(TAG_ADDRESS_LINE_TWO, str_address_line_two);
-                            map.put(TAG_CITY, str_city);
-                            map.put(TAG_STATE, str_state);
-                            map.put(TAG_PINCODE, str_pincode);
-                            map.put(TAG_COUNTRY, str_country);
+                        try {
+
+                            str_img = "http://epictech.in/winya/" + str_prof_picture;
+
+                            System.out.println("IMGGGGGGGGGGGGGGGG ::: " + str_img);
+
+                            Glide.with(getApplicationContext()).load(str_img)
+                                    .thumbnail(0.5f)
+                                    .crossFade()
+                                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                                    .into(img_profile_picture);
+
+                            txt_username.setText("" + str_first_name + " " + str_second_name);
+                            txt_primary_number.setText("" + str_primary_number);
+                            txt_mail_id.setText("" + str_mail_id);
+                            txt_university.setText("" + str_univ_applied);
+                            txt_course.setText("" + str_course_applied);
+
+                            edt_fname.setText("" + str_first_name);
+                            edt_lname.setText("" + str_second_name);
+                            edt_phone.setText("" + str_primary_number);
+                            edt_email.setText("" + str_mail_id);
+                            edt_addressline_one.setText("" + str_address_line_one);
+                            edt_addressline_two.setText("" + str_address_line_two);
+                            edt_city.setText("" + str_city);
+                            edt_state.setText("" + str_state);
+                            edt_pincode.setText("" + str_pincode);
+                            edt_country.setText("" + str_country);
+
+                        } catch (Exception e) {
 
                         }
+
 
                     } else if (success == 0) {
 
