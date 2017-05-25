@@ -339,7 +339,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
                         connec.getNetworkInfo(1).getState() == android.net.NetworkInfo.State.DISCONNECTED) {
 
             new AlertDialog.Builder(Activity_Search_Results.this)
-                    .setTitle("GEM CRM")
+                    .setTitle("WINYA")
                     .setMessage("Oops no internet !")
                     .setIcon(R.mipmap.ic_launcher)
                     .setPositiveButton("Ok",

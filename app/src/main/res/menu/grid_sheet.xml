@@ -13,8 +13,8 @@
 
     <item
         android:id="@+id/services"
-        android:icon="@mipmap/ic_services"
-        android:title="Services" />
+        android:icon="@mipmap/ic_user_icon"
+        android:title="Profile" />
 
     <item
         android:id="@+id/courses"

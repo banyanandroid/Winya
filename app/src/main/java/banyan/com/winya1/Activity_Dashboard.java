@@ -122,6 +122,12 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
             Intent i = new Intent(getApplicationContext(), Activity_Timeline.class);
             startActivity(i);
 
+        }else if (item.getTitle().equals("Profile")) {
+
+
+            Intent i = new Intent(getApplicationContext(), Activity_Profile.class);
+            startActivity(i);
+
         }
 
 

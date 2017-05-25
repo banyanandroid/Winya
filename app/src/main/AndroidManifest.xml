@@ -46,6 +46,11 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
+            android:name=".Activity_Profile"
+            android:label="PROFILE"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
             android:name=".Activity_Apply_form"
             android:label="Apply Here"
             android:screenOrientation="portrait"></activity>

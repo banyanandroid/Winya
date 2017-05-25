@@ -39,6 +39,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'com.github.florent37:arclayout:1.0.1'
+    compile 'com.github.florent37:diagonallayout:1.0.0'
     /***************     For Bottom Menu   ******************/
     compile 'com.github.Kennyc1012:BottomSheet:2.2.0'
 

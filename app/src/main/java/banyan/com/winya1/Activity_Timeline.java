@@ -1,5 +1,6 @@
 package banyan.com.winya1;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -62,6 +63,18 @@ public class Activity_Timeline extends AppCompatActivity implements SwipeRefresh
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mToolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_action_back));
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                startActivity(i);
+                finish();
+            }
+        });
 
         list_timeline=(ListView)findViewById(R.id.timeline_listview);
         swipeRefreshLayout=(SwipeRefreshLayout)findViewById(R.id.timeline_swipe_refresh_layout);
