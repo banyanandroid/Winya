@@ -266,6 +266,15 @@ public class Activity_Profile extends AppCompatActivity {
                 str_get_state = edt_state.getText().toString();
                 str_get_pincode = edt_pincode.getText().toString();
                 str_get_country = edt_country.getText().toString();
+
+                try {
+                    queue = Volley.newRequestQueue(Activity_Profile.this);
+                    User_Profile_Update();
+
+                } catch (Exception e) {
+                    // TODO: handle exceptions
+                }
+
             }
         });
 
@@ -385,6 +394,101 @@ public class Activity_Profile extends AppCompatActivity {
 
                 params.put("user_id", str_user_id);
 
+                System.out.println("USER_ID ::: " + str_user_id);
+
+
+                return params;
+            }
+
+        };
+
+        // Adding request to request queue
+        queue.add(request);
+    }
+
+
+    /*****************************
+     *  User Profile Update
+     ***************************/
+
+    public void User_Profile_Update() {
+
+
+        StringRequest request = new StringRequest(Request.Method.POST,
+                AppConfig.url_update_user_profile, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                Log.d(TAG, response.toString());
+                System.out.println("CAME RESPONSE ::: " + response.toString());
+                try {
+                    JSONObject obj = new JSONObject(response);
+                    int success = obj.getInt("success");
+
+                    if (success == 1) {
+
+                        Alerter.create(Activity_Profile.this)
+                                .setTitle("WINYA")
+                                .setText("Your Profile Updated \n  Successfully!!")
+                                .setBackgroundColor(R.color.Alert_Success)
+                                .show();
+
+                    } else if (success == 0) {
+
+
+                        Alerter.create(Activity_Profile.this)
+                                .setTitle("WINYA")
+                                .setText("Oops! Something went wrong :( \n Try Again")
+                                .setBackgroundColor(R.color.Alert_Fail)
+                                .show();
+                    }
+
+
+                } catch (JSONException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Alerter.create(Activity_Profile.this)
+                        .setTitle("WINYA")
+                        .setText("Internal Error :(\n" + error.getMessage())
+                        .setBackgroundColor(R.color.colorPrimaryDark)
+                        .show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("first_name", str_get_first_name);
+                params.put("last_name", str_get_second_name);
+                params.put("mail_id", str_get_mail_id);
+                params.put("ph_no", str_get_primary_number);
+                params.put("ad_line1", str_get_address_line_one);
+                params.put("ad_line2", str_get_address_line_two);
+                params.put("city", str_get_city);
+                params.put("state", str_get_state);
+                params.put("pincode", str_get_pincode);
+                params.put("country", str_get_country);
+                params.put("user_id", str_user_id);
+
+
+                System.out.println("FIRST NAME ::: " + str_get_first_name);
+                System.out.println("LAST NAME  ::: " + str_get_second_name);
+                System.out.println("MAIL_ID ::: " + str_get_mail_id);
+                System.out.println("PRIMARY_NUMBER ::: " + str_get_primary_number);
+                System.out.println("ADDRESS_LINE_ONE ::: " + str_get_address_line_one);
+                System.out.println("ADDRESS_LINE_TWO ::: " + str_get_address_line_two);
+                System.out.println("CITY ::: " + str_get_city);
+                System.out.println("STATE ::: " + str_get_state);
+                System.out.println("PINCODE ::: " + str_get_pincode);
+                System.out.println("COUNTRY ::: " + str_get_country);
                 System.out.println("USER_ID ::: " + str_user_id);
 
 
