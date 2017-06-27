@@ -128,6 +128,18 @@ public class Activity_Dashboard extends AppCompatActivity implements View.OnClic
             Intent i = new Intent(getApplicationContext(), Activity_Profile.class);
             startActivity(i);
 
+        }else if (item.getTitle().equals("Courses")) {
+
+
+            Intent i = new Intent(getApplicationContext(), Activity_Coursewise_Search.class);
+            startActivity(i);
+
+        }else if (item.getTitle().equals("Contact Us")) {
+
+
+            Intent i = new Intent(getApplicationContext(), Activity_Contact_us.class);
+            startActivity(i);
+
         }
 
 

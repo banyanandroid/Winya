@@ -48,8 +48,8 @@ public class Activity_Profile extends AppCompatActivity {
 
     CircleImageView img_profile_picture;
 
-    EditText edt_fname, edt_lname, edt_phone, edt_email, edt_addressline_one, edt_addressline_two, edt_city,
-            edt_state, edt_pincode, edt_country;
+    EditText edt_fname, edt_lname, edt_phone, edt_email, edt_addressline_one, edt_addressline_two,
+            edt_city, edt_state, edt_pincode, edt_country;
 
     TextInputLayout txt_in_fname, txt_in_lname, txt_in_phone, txt_in_email;
 
@@ -59,8 +59,12 @@ public class Activity_Profile extends AppCompatActivity {
     String str_user_name;
     public static String str_user_id;
 
-    String str_first_name, str_second_name, str_mail_id, str_primary_number, str_secondary_number, str_univ_applied, str_course_applied, str_prof_picture, str_address_line_one, str_address_line_two, str_city, str_state, str_pincode, str_country, str_img = "";
-    String str_get_first_name, str_get_second_name, str_get_mail_id, str_get_primary_number, str_get_secondary_number, str_get_univ_applied, str_get_course_applied, str_get_address_line_one, str_get_address_line_two, str_get_city, str_get_state, str_get_pincode, str_get_country = "";
+    String str_first_name, str_second_name, str_mail_id, str_primary_number, str_secondary_number, str_univ_applied, str_course_applied,
+            str_prof_picture, str_address_line_one, str_address_line_two, str_city, str_state, str_pincode, str_country, str_img = "";
+    String str_get_first_name, str_get_second_name, str_get_mail_id, str_get_primary_number,
+            str_get_secondary_number, str_get_univ_applied, str_get_course_applied, str_get_address_line_one, str_get_address_line_two, str_get_city, str_get_state, str_get_pincode, str_get_country = "";
+
+    String str_edit_value="0";
 
     public static RequestQueue queue;
 
@@ -139,7 +143,8 @@ public class Activity_Profile extends AppCompatActivity {
         edt_pincode = (EditText) findViewById(R.id.pincode);
         edt_country = (EditText) findViewById(R.id.country);
 
-        edt_addressline_one.setFocusable(false);
+
+        /*edt_addressline_one.setFocusable(false);
         edt_addressline_one.setEnabled(false);
 
         edt_addressline_two.setFocusable(false);
@@ -156,7 +161,7 @@ public class Activity_Profile extends AppCompatActivity {
 
         edt_country.setFocusable(false);
         edt_country.setEnabled(false);
-
+*/
         try {
             queue = Volley.newRequestQueue(Activity_Profile.this);
             Get_User_Profile();

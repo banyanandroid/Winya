@@ -60,6 +60,18 @@
             android:label="TimeLine"
             android:screenOrientation="portrait"></activity>
 
+        <activity
+            android:name=".Activity_Coursewise_Search"
+            android:label="Coursewise Search"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name=".Activity_Contact_us"
+            android:label=""
+            android:screenOrientation="portrait"></activity>
+
+
+
     </application>
 
 </manifest>

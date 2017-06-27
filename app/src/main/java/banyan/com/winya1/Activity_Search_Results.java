@@ -83,7 +83,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
             @Override
             public void onClick(View v) {
 
-                Intent i = new Intent(getApplicationContext(), Activity_Dashboard.class);
+                Intent i = new Intent(getApplicationContext(), Activity_Search.class);
                 startActivity(i);
                 finish();
             }
@@ -303,7 +303,7 @@ public class Activity_Search_Results extends AppCompatActivity implements SwipeR
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
 
-                params.put("country", str_country_id); // replace as str_id
+                params.put("country", str_country_id);
                 params.put("course", str_course);
 
                 System.out.println("country ::: " + str_country_id);

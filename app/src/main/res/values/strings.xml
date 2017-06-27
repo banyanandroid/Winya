@@ -18,7 +18,9 @@ We constantly engage with the student community in Australia and New Zealand to 
 
 We’ve stayed true to that original value and purpose by promoting inclusion and diversity for the past 160 years.</string>
 
-
+    <string name="contactus_desc">Our Offshore office is based in Wellington, New Zealand and Onshore Head Quaters in Chennai, Tamil Nadu, India. We have channel partners(Branches) setup across key cities. Please countact us for the nearest branch.</string>
+    <string name="contact_us_offshore_address">1/27, Buller Street, Te Aro\nWellington 6011</string>
+    <string name="contact_us_onshore_address">Headquarters :\nKodambakkam, Chennai, India. \nBranches:\nCoimbatore, Madurai &amp; Trichy in Tamil Nadu.\nAndhra, Karnataka and Kerala in India </string>
     <string-array name="year_of_study">
         <item>2017</item>
         <item>2018</item>
